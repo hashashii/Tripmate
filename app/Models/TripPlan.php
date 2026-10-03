@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TripPlan extends Model
 {
@@ -16,13 +17,12 @@ class TripPlan extends Model
         'selected_places',
     ];
 
-    // Selected places list එක Array ekak විදියට auto convert කරන්න
     protected $casts = [
+        'visit_date' => 'date',
         'selected_places' => 'array',
     ];
 
-    // Trip Plan එක අයිති User ට
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

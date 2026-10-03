@@ -39,7 +39,7 @@
 
             {{-- Action Button --}}
             <div class="flex items-center gap-3">
-                <a href="#" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg transition-colors shadow-sm">
+                <a href="{{ route('trip-plans.index') }}" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg transition-colors shadow-sm">
                     + My Trip Plan
                 </a>
             </div>
