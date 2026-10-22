@@ -89,7 +89,7 @@
                         </a>
 
                         <a
-                            href="#places"
+                            href="{{ route('home') }}#places"
                             class="group inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-emerald-700 px-6 py-3 text-base font-bold text-white shadow-md shadow-emerald-950/20 transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-800 hover:shadow-lg active:translate-y-0"
                         >
                             Explore Places
