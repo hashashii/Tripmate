@@ -8,38 +8,52 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    // Show the home page
     public function index(Request $request)
     {
+        // Get all categories
         $categories = Category::all();
-        
-        // Category filtering & Search query handling
+
+        // Get places with their categories
         $query = Place::with('category');
 
-        if ($request->has('category') && $request->category != '') {
-            $query->where('category_id', $request->category);
+        // Filter places by category
+        $category = $request->input('category');
+
+        if ($category != '') {
+            $query->where('category_id', $category);
         }
 
-        if ($request->has('search') && $request->search != '') {
-            $query->where('name', 'like', '%' . $request->search . '%');
+        // Search places by name
+        $search = $request->input('search');
+
+        if ($search != '') {
+            $query->where('name', 'like', '%' . $search . '%');
         }
 
+        // Get the final list of places
         $places = $query->get();
 
+        // Send data to the home page
         return view('home', compact('places', 'categories'));
     }
 
-    // Single Place Details View
+    // Show details of one place
     public function show($id)
     {
-        // Place එක සහ ඊට අදාළ Category එක load කරගැනීම
-        $place = Place::with('category')->findOrFail($id);
+        // Make sure the gallery table is ready
+        \App\Support\GalleryTable::ensure();
 
-        // එම Category එකටම අයත් වෙනත් ස්ථාන (Related Places) 3ක් load කරගැනීම
+        // Find the selected place with its category and images
+        $place = Place::with(['category', 'images'])->findOrFail($id);
+
+        // Find up to 3 other places in the same category
         $relatedPlaces = Place::where('category_id', $place->category_id)
             ->where('id', '!=', $place->id)
             ->take(3)
             ->get();
 
+        // Send data to the place details page
         return view('places.show', compact('place', 'relatedPlaces'));
     }
 }

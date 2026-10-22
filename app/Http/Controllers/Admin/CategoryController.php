@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Http\Request;
+
+class CategoryController extends Controller
+{
+    public function index()
+    {
+        $categories = Category::withCount('places')->orderBy('name')->get();
+
+        return view('admin.categories.index', compact('categories'));
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:100', 'unique:categories,name'],
+        ]);
+
+        Category::create($data);
+
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category created.');
+    }
+
+    public function edit(Category $category)
+    {
+        return view('admin.categories.edit', compact('category'));
+    }
+
+    public function update(Request $request, Category $category)
+    {
+        $data = $request->validate([
+            'name' => [
+                'required', 'string', 'max:100',
+                'unique:categories,name,' . $category->id,
+            ],
+        ]);
+
+        $category->update($data);
+
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category updated.');
+    }
+
+    public function destroy(Category $category)
+    {
+        // Places cascade-delete with their category, so block it when in use.
+        if ($category->places()->exists()) {
+            return back()->with(
+                'error',
+                'This category still has places. Move or delete them first.'
+            );
+        }
+
+        $category->delete();
+
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category deleted.');
+    }
+}

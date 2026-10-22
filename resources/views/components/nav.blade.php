@@ -13,33 +13,39 @@
                 </a>
             </div>
 
-            {{-- Navigation Links (Semantic UL/LI Structure) --}}
+            {{-- Navbar Links --}}
             <ul class="hidden md:flex items-center space-x-6 text-sm font-semibold">
+
+                {{-- Home --}}
                 <li>
-                    <a href="{{ route('home') }}" class="{{ request()->routeIs('home') && !request('category') ? 'text-emerald-600 font-bold' : 'text-gray-600 hover:text-emerald-600' }} transition-colors">
+                    <a href="{{ route('home') }}"
+                    class="{{ request()->routeIs('home') && !request('category') ? 'text-emerald-600 font-bold' : 'text-gray-600 hover:text-emerald-600' }} transition-colors">
                         Home
                     </a>
                 </li>
+
+                {{-- Explore Places --}}
                 <li>
-                    <a href="{{ route('home') }}?category=1" class="{{ request('category') == 1 ? 'text-emerald-600 font-bold' : 'text-gray-600 hover:text-emerald-600' }} transition-colors">
-                        Nature & Waterfalls
+                    <a href="{{ route('home') }}#places"
+                    class="text-gray-600 hover:text-emerald-600 transition-colors">
+                        Explore Places
                     </a>
                 </li>
+
+                {{-- About --}}
                 <li>
-                    <a href="{{ route('home') }}?category=2" class="{{ request('category') == 2 ? 'text-emerald-600 font-bold' : 'text-gray-600 hover:text-emerald-600' }} transition-colors">
-                        Heritage
+                    <a href="{{ route('about') }}"
+                    class="{{ request()->routeIs('about') ? 'text-emerald-600 font-bold' : 'text-gray-600 hover:text-emerald-600' }} transition-colors">
+                        About
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('home') }}?category=3" class="{{ request('category') == 3 ? 'text-emerald-600 font-bold' : 'text-gray-600 hover:text-emerald-600' }} transition-colors">
-                        Adventure
-                    </a>
-                </li>
+
             </ul>
 
-            {{-- Action Button --}}
+            {{-- My Trip Plan Button --}}
             <div class="flex items-center gap-3">
-                <a href="{{ route('trip-plans.index') }}" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg transition-colors shadow-sm">
+                <a href="{{ route('trip-plans.index') }}"
+                class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg transition-colors shadow-sm">
                     + My Trip Plan
                 </a>
             </div>

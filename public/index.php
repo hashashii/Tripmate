@@ -1,5 +1,8 @@
 <?php
 
+// Avoid the 60s limit on slow first loads (Windows/XAMPP)
+@ini_set('max_execution_time', '300');
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 

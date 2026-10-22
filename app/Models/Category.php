@@ -11,7 +11,7 @@ class Category extends Model
 
     protected $fillable = ['name'];
 
-    // Category එකකට Places ගොඩක් තියෙන්න පුළුවන්
+   
     public function places()
     {
         return $this->hasMany(Place::class);

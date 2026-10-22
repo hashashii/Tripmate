@@ -5,8 +5,10 @@
 @section('content')
     <div class="space-y-12">
 
-        {{-- Hero --}}
+        
         <section class="relative isolate flex min-h-[520px] items-center overflow-hidden rounded-3xl bg-emerald-950 text-white lg:min-h-[560px]">
+
+            
             <img
                 src="https://images.unsplash.com/photo-1574611122955-5baa61496637?auto=format&fit=crop&w=1920&q=85"
                 alt="A train crossing Nine Arch Bridge in Sri Lanka"
@@ -14,10 +16,12 @@
                 class="absolute inset-0 -z-20 h-full w-full object-cover object-[65%_center]"
             >
 
+            
             <div class="absolute inset-0 -z-10 bg-gradient-to-r from-emerald-950/95 via-emerald-950/65 to-emerald-950/20"></div>
 
             <div class="w-full px-6 py-12 sm:px-10 sm:py-14 lg:px-14">
                 <div class="max-w-2xl">
+
                     <span class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold tracking-wide">
                         <span class="h-2 w-2 rounded-full bg-amber-300"></span>
                         Small trips. Beautiful memories.
@@ -40,6 +44,7 @@
                         method="GET"
                         class="mt-7 flex max-w-xl flex-col gap-2 rounded-2xl bg-white p-2 shadow-xl sm:flex-row"
                     >
+
                         @if (request('category'))
                             <input
                                 type="hidden"
@@ -52,6 +57,7 @@
                             Search places
                         </label>
 
+              
                         <input
                             id="place-search"
                             type="search"
@@ -61,6 +67,7 @@
                             class="min-w-0 flex-1 rounded-xl px-4 py-3 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-emerald-500"
                         >
 
+                      
                         <button
                             type="submit"
                             class="rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700"
@@ -69,26 +76,33 @@
                         </button>
                     </form>
 
-                    <div class="mt-5 flex flex-wrap items-center gap-4">
+                    
+                    <div class="mt-6 flex flex-wrap items-center gap-4">
                         <a
                             href="{{ route('trip-plans.create') }}"
-                            class="inline-flex items-center gap-2 rounded-xl bg-amber-300 px-5 py-3 text-sm font-bold text-emerald-950 transition hover:bg-amber-200"
+                            class="group inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-amber-300 px-6 py-3 text-base font-bold text-emerald-950 shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-amber-200 hover:shadow-lg active:translate-y-0"
                         >
                             Plan Your Trip
-                            <span aria-hidden="true">→</span>
+                            <span class="text-xl transition-transform duration-300 group-hover:translate-x-1">
+                                →
+                            </span>
                         </a>
 
                         <a
                             href="#places"
-                            class="rounded-lg px-2 py-3 text-sm font-semibold text-white hover:underline"
+                            class="group inline-flex min-h-12 items-center justify-center gap-3 rounded-xl bg-emerald-700 px-6 py-3 text-base font-bold text-white shadow-md shadow-emerald-950/20 transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-800 hover:shadow-lg active:translate-y-0"
                         >
                             Explore Places
+                            <span class="text-xl transition-transform duration-300 group-hover:translate-x-1">
+                                →
+                            </span>
                         </a>
                     </div>
                 </div>
             </div>
         </section>
-        {{-- Categories --}}
+
+       
         <section>
             <div class="mb-5">
                 <p class="text-xs font-bold uppercase tracking-widest text-emerald-700">
@@ -104,7 +118,10 @@
                 </p>
             </div>
 
+           
             <div class="flex flex-wrap gap-3">
+
+                
                 <a
                     href="{{ route('home', array_filter(
                         ['search' => request('search')],
@@ -118,6 +135,7 @@
                     All Places
                 </a>
 
+               
                 @foreach ($categories as $category)
                     <a
                         href="{{ route('home', array_filter(
@@ -138,7 +156,7 @@
             </div>
         </section>
 
-        {{-- Places --}}
+        
         <section id="places" class="scroll-mt-24">
             <div class="mb-6 flex flex-col justify-between gap-4 border-b border-slate-200 pb-5 sm:flex-row sm:items-end">
                 <div>
@@ -155,12 +173,14 @@
                     </p>
                 </div>
 
+               
                 <span class="self-start rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800">
                     {{ $places->count() }}
                     {{ $places->count() === 1 ? 'place' : 'places' }} found
                 </span>
             </div>
 
+           
             @if (request('search') || request('category'))
                 <div class="mb-6 flex flex-wrap items-center gap-3 rounded-xl bg-slate-50 px-4 py-3">
                     <p class="text-sm text-slate-600">
@@ -171,6 +191,7 @@
                         @endif
                     </p>
 
+               
                     <a
                         href="{{ route('home') }}"
                         class="text-sm font-semibold text-emerald-700 hover:underline"
@@ -180,9 +201,13 @@
                 </div>
             @endif
 
+          
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
+           
                 @forelse ($places as $place)
                     <x-place-card :place="$place" />
+
                 @empty
                     <div class="col-span-full rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
                         <h3 class="text-xl font-bold text-slate-900">
@@ -193,6 +218,7 @@
                             Try a different place name or browse another category.
                         </p>
 
+                  
                         <a
                             href="{{ route('home') }}"
                             class="mt-5 inline-block rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
@@ -204,7 +230,7 @@
             </div>
         </section>
 
-        {{-- Trip Planner --}}
+
         <section class="rounded-3xl border border-emerald-100 bg-emerald-50 p-6 sm:p-8">
             <div class="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
                 <div class="max-w-xl">
@@ -221,6 +247,7 @@
                         in one simple trip plan.
                     </p>
                 </div>
+
 
                 <a
                     href="{{ route('trip-plans.create') }}"
